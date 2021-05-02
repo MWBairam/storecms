@@ -1,0 +1,59 @@
+﻿@model admin.Models.StoreIdentityModels.AspNetUser
+
+@{ Layout = null; }
+
+<div class="row">
+    <div class="col-md-12">
+
+
+
+        <form asp-action="AddOrEdit" asp-route-id="@Model.Id" onsubmit="return jQueryAjaxPost(this);">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="DisplayName" class="control-label"></label>
+                <input asp-for="DisplayName" class="form-control" required maxlength="16" />
+                <span asp-validation-for="DisplayName" class="text-danger"></span>
+            </div>
+
+            <input asp-for="UserName" class="form-control" type="hidden" />
+            <input asp-for="NormalizedUserName" class="form-control" type="hidden" />
+
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" readonly />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <input asp-for="NormalizedEmail" class="form-control" type="hidden" />
+            <input asp-for="EmailConfirmed" class="form-control" type="hidden" />
+            <input asp-for="PasswordHash" class="form-control" type="hidden" />
+            <input asp-for="SecurityStamp" class="form-control" type="hidden" />
+            <input asp-for="ConcurrencyStamp" class="form-control" type="hidden" />
+            <input asp-for="PhoneNumber" class="form-control" type="hidden" />
+            <input asp-for="PhoneNumberConfirmed" class="form-control" type="hidden" />
+            <input asp-for="TwoFactorEnabled" class="form-control" type="hidden" />
+            <input asp-for="LockoutEnd" class="form-control" type="hidden" />
+            <input asp-for="LockoutEnabled" class="form-control" type="hidden" />
+            <input asp-for="AccessFailedCount" class="form-control" type="hidden" />
+
+
+
+
+
+            <div class="form-group">
+                <div class="col-md-6 offset-md-3">
+                    <input type="submit" value="Submit" class="btn btn-primary btn-block" />
+                </div>
+            </div>
+
+        </form>
+
+
+
+    </div>
+</div>
+

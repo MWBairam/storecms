@@ -1,0 +1,96 @@
+﻿@model admin.Models.StoreIdentityModels.Address
+
+@{ Layout = null; }
+
+<div class="row">
+    <div class="col-md-12">
+
+
+
+        <form asp-action="AddOrEdit" asp-route-id="@Model.Id" onsubmit="return jQueryAjaxPost(this);">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="row col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="FirstName" class="control-label"></label>
+                        <input asp-for="FirstName" class="form-control" required maxlength="16" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="LastName" class="control-label"></label>
+                        <input asp-for="LastName" class="form-control" required maxlength="16" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Street" class="control-label"></label>
+                        <input asp-for="Street" class="form-control" required maxlength="16" />
+                        <span asp-validation-for="Street" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="City" class="control-label"></label>
+                        <input asp-for="City" class="form-control" required maxlength="16" />
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="State" class="control-label"></label>
+                        <input asp-for="State" class="form-control" required maxlength="16" />
+                        <span asp-validation-for="State" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Zipcode" class="control-label"></label>
+                        <input asp-for="Zipcode" class="form-control" required maxlength="16" />
+                        <span asp-validation-for="Zipcode" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row col-md-12">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="AppUserId" class="control-label"></label>
+                        <select asp-for="AppUserId" class="form-control" asp-items="ViewBag.AppUserId" disabled></select>
+                        <!-- we do not want to allow the user to Edit the AppUser, so that the select list is disbled-->
+                        <!-- we cannot use "readonly" like we used in the text inputs above-->
+                        <!-- unfortunately the disabled input will not be submitted with the form submit action, so I created the below hidden input to be submitted :-->
+                        <select asp-for="AppUserId" class="form-control" asp-items="ViewBag.AppUserId" hidden></select>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-md-6 offset-md-3">
+                    <input type="submit" value="Submit" class="btn btn-primary btn-block" />
+                </div>
+            </div>
+        </form>
+
+
+
+    </div>
+</div>
+

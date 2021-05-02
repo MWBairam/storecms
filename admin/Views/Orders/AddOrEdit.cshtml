@@ -1,0 +1,149 @@
+﻿@model admin.Models.Order
+
+@{ Layout = null; }
+
+<div class="row">
+    <div class="col-md-12">
+
+
+
+        <form asp-action="AddOrEdit" asp-route-id="@Model.Id" enctype="multipart/form-data" onsubmit="return jQueryAjaxPost(this);">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="row col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="BuyerEmail" class="control-label"></label>
+                        <input asp-for="BuyerEmail" class="form-control" required maxlength="16" readonly />
+                        <span asp-validation-for="BuyerEmail" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="OrderDate" class="control-label"></label>
+                        <input asp-for="OrderDate" class="form-control" required maxlength="100" readonly />
+                        <span asp-validation-for="OrderDate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ShipToAddressFirstName" class="control-label"></label>
+                        <input asp-for="ShipToAddressFirstName" class="form-control" required maxlength="16" />
+                        <span asp-validation-for="ShipToAddressFirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ShipToAddressLastName" class="control-label"></label>
+                        <input asp-for="ShipToAddressLastName" class="form-control" required maxlength="16" />
+                        <span asp-validation-for="ShipToAddressLastName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ShipToAddressStreet" class="control-label"></label>
+                        <input asp-for="ShipToAddressStreet" class="form-control" required maxlength="16" />
+                        <span asp-validation-for="ShipToAddressStreet" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ShipToAddressCity" class="control-label"></label>
+                        <input asp-for="ShipToAddressCity" class="form-control" required maxlength="16" />
+                        <span asp-validation-for="ShipToAddressCity" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ShipToAddressState" class="control-label"></label>
+                        <input asp-for="ShipToAddressState" class="form-control" required maxlength="16" />
+                        <span asp-validation-for="ShipToAddressState" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ShipToAddressZipcode" class="control-label"></label>
+                        <input asp-for="ShipToAddressZipcode" class="form-control" required maxlength="16" />
+                        <span asp-validation-for="ShipToAddressZipcode" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Subtotal" class="control-label"></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">#</div>
+                            </div>
+                            <input asp-for="Subtotal" class="form-control" readonly />
+                        </div>
+                        <span asp-validation-for="Subtotal" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Status" class="control-label"></label>
+                        <input asp-for="Status" class="form-control" readonly />
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="DeliveryMethodId" class="control-label"></label>
+                        <select asp-for="DeliveryMethodId" class="form-control" asp-items="ViewBag.DeliveryMethodId" disabled></select>
+                        <!-- we do not want to allow the user to Edit the DeliveryMethod, so that the select list is disbled-->
+                        <!-- we cannot use "readonly" like we used in the text inputs above-->
+                        <!-- unfortunately the disabled input will not be submitted with the form submit action, so I created the below hidden input to be submitted :-->
+                        <select asp-for="DeliveryMethodId" class="form-control" asp-items="ViewBag.DeliveryMethodId" hidden></select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="PaymentIntentId" class="control-label"></label>
+                        <input asp-for="PaymentIntentId" class="form-control" readonly />
+                        <span asp-validation-for="PaymentIntentId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="form-group">
+                <div class="col-md-6 offset-md-3">
+                    <input type="submit" value="Submit" class="btn btn-primary btn-block" />
+                </div>
+            </div>
+
+
+        </form>
+
+
+
+
+    </div>
+</div>

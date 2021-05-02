@@ -1,0 +1,47 @@
+﻿@model admin.Models.ProductBrand
+
+@{ Layout = null; }
+
+<div class="row">
+    <div class="col-md-12">
+
+
+
+        <form asp-action="AddOrEdit" asp-route-id="@Model.Id" onsubmit="return jQueryAjaxPost(this);">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">aBc</div>
+                    </div>
+                    <input asp-for="Name" class="form-control" required maxlength="16" />
+                    <!-- our model ProductBrand is reversly scaffolded from the DB, and remember we have created it at first in "skinet" app
+                         But when I created it, I did not provide it with [Requiered] and [MaxLength] attributes,
+                         so that here the method AddOrEdit in ProductBrandsController does not have to validate !
+                         so i did the validation in here in this view by adding "requierd" and "MaxLength" to the input.
+                         https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation.
+                         A permanent solution for this is to go to "skinet" app, Infrastructure project, Data\Config folder, and configure that there, or write [Reqiuered] attribute in the model file in core project, Models folder,
+                         then after that re do the reverse model scaffolding in this admin cms project.
+                    -->
+
+                </div>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-6 offset-md-3">
+                    <input type="submit" value="Submit" class="btn btn-primary btn-block" />
+                </div>
+            </div>
+        </form>
+
+
+
+    </div>
+</div>
+

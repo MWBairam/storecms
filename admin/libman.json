@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "limonte-sweetalert2@10.15.7",
+      "destination": "wwwroot/lib/limonte-sweetalert2/"
+    },
+    {
+      "library": "datatables.net@1.10.19",
+      "destination": "wwwroot/lib/datatables.net/"
+    },
+    {
+      "library": "popper.js@2.9.2",
+      "destination": "wwwroot/lib/popper.js/"
+    },
+    {
+      "library": "notify.js@3.0.0",
+      "destination": "wwwroot/lib/notify.js/"
+    },
+    {
+      "library": "toastr.js@2.1.4",
+      "destination": "wwwroot/lib/toastr.js/"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<admin.Models.OrderItem>
+
+@{ Layout = null; }
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- style="table-layout: fixed;word-wrap: break-word;" are for fitting the tabel in a bootstrap modal popup -->
+        <!-- https://stackoverflow.com/questions/35636587/fit-html-table-inside-bootstrap-dialog-->
+        <table class="table" style="table-layout: fixed;word-wrap: break-word;">
+            <thead>
+                <tr>
+                    <th style="width:6em;">
+                        @*@Html.DisplayNameFor(model => model.ItemOrderedProductItemId)*@
+                        Product Id
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.ItemOrderedProductName)*@
+                        Product Name
+                    </th>
+                    <th style="width:5em;">
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                    <th style="width:6em;">
+                        @Html.DisplayNameFor(model => model.Quantity)
+                    </th>
+                    <th style="width:5em;">
+                        @Html.DisplayNameFor(model => model.OrderId)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="width:6em;">
+                            @Html.DisplayFor(modelItem => item.ItemOrderedProductItemId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemOrderedProductName)
+                        </td>
+                        <td style="width:5em;">
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td style="width:6em;">
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td style="width:5em;">
+                            @Html.DisplayFor(modelItem => item.OrderId)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

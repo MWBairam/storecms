@@ -1,0 +1,15 @@
+@model admin.Models.Message
+
+@{ Layout = null; }
+
+<div class="row">
+    <div class="col-md-12">
+            <div class="form-group">
+                <label>@Model.FirstName's Message:</label>
+                <div class="input-group">
+                    @Html.DisplayFor(modelItem => Model.Message1)
+                </div>
+            </div>
+    </div>
+</div>
+

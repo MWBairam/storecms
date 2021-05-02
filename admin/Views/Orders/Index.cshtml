@@ -1,0 +1,13 @@
+@model IEnumerable<admin.Models.Order>
+
+@{
+    ViewData["Title"] = "Orders";
+    Layout = "~/Views/Shared/_UILayout.cshtml";
+}
+
+
+
+
+<div id="view-all">
+    @await Html.PartialAsync("_ViewAll", Model)
+</div>

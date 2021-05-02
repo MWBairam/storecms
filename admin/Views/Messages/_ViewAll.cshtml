@@ -1,0 +1,134 @@
+﻿@model IEnumerable<admin.Models.Message>
+
+
+
+<div class="col-md-12">
+
+    <h1 class="text-center"><i class="fas fa-envelope text-success"></i> Customers' Messages </h1>
+
+
+
+    <!-- This table to implement advanced search functionality on the Table we have. -->
+    <!-- Bootstrap and JQueru codes are written in site,js. -->
+    <!-- This table is hidden, to show it we use the below button, and the javascript code is in site.js-->
+    <table cellpadding="3" cellspacing="0" border="0" style="width: 67%; margin: 0 auto 2em auto;" id="AdvancedSearchTable" class="hide">
+        <thead>
+            <tr>
+                <th>
+                    Target
+                </th>
+                <th>
+                    Search text
+                </th>
+                <th>
+                    Treat as regex
+                </th>
+                <th>
+                    Use smart search
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Be carefull, replace the i in the data-column="i" and id="col'i'_filter" with the correct column number from the real table.-->
+            <!-- This i is handled in the jquery code. -->
+            <tr id="filter_global">
+                <td>Global search</td>
+                <td align="center"><input type="text" class="global_filter" id="global_filter"></td>
+                <td align="center"><input type="checkbox" class="global_filter" id="global_regex"></td>
+                <td align="center"><input type="checkbox" class="global_filter" id="global_smart" checked="checked"></td>
+            </tr>
+            <tr id="filter_col2" data-column="2">
+                <td>Column - @Html.DisplayNameFor(model => model.FirstName)</td>
+                <td align="center"><input type="text" class="column_filter" id="col2_filter"></td>
+                <td align="center"><input type="checkbox" class="column_filter" id="col2_regex"></td>
+                <td align="center"><input type="checkbox" class="column_filter" id="col2_smart" checked="checked"></td>
+            </tr>
+            <tr id="filter_col3" data-column="3">
+                <td>Column - @Html.DisplayNameFor(model => model.LastName)</td>
+                <td align="center"><input type="text" class="column_filter" id="col3_filter"></td>
+                <td align="center"><input type="checkbox" class="column_filter" id="col3_regex"></td>
+                <td align="center"><input type="checkbox" class="column_filter" id="col3_smart" checked="checked"></td>
+            </tr>
+            <tr id="filter_col4" data-column="4">
+                <td>Column - @Html.DisplayNameFor(model => model.Address)</td>
+                <td align="center"><input type="text" class="column_filter" id="col4_filter"></td>
+                <td align="center"><input type="checkbox" class="column_filter" id="col4_regex"></td>
+                <td align="center"><input type="checkbox" class="column_filter" id="col4_smart" checked="checked"></td>
+            </tr>
+            <tr id="filter_col5" data-column="5">
+                <td>Column - @Html.DisplayNameFor(model => model.Email)</td>
+                <td align="center"><input type="text" class="column_filter" id="col5_filter"></td>
+                <td align="center"><input type="checkbox" class="column_filter" id="col5_regex"></td>
+                <td align="center"><input type="checkbox" class="column_filter" id="col5_smart" checked="checked"></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+    <div class="row">
+        <div class="col-md-6 text-left">
+            <!--send id=0 to the method so that the method understands it is a create process. (we can write "null" instead of "new {id=0}" but problems might happen)-->
+            @*<a onclick="showInPopup('@Url.Action("AddOrEdit","ProductBrands",new {id=0},Context.Request.Scheme)','New Product Brand')" class="btn btn-success text-white my-1"><i class="fas fa-plus"></i> New Product Brand</a>*@
+        </div>
+        <div class="col-md-6 text-right">
+            <button class="btn btn-outline-primary my-1" id="AdvancedSearchButton" style="width: 11em">Advanced Search</button>
+        </div>
+    </div>
+
+
+
+    <table class="table" id="DataTable">
+        <thead class="thead-light">
+            <tr>
+                <th>
+                    # <!-- This column to have row number. JQuery in site.js will do that-->
+                </th>
+                <th>
+                    Options
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td id="rowNumber">
+                        <!-- This column to havve row number. JQuery in site.js will do that-->
+                    </td>
+                    <td>
+                        <div>
+                            <!-- ShowMessage -->
+                            <a onclick="showInPopup('@Url.Action("ShowMessage","Messages",new {id=item.Id},Context.Request.Scheme)','Show Message')" data-toggle="tooltip" data-placement="top" title="Show Message" class="btn btn-light btn-sm ml-1" ><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
