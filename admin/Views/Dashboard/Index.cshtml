@@ -1,0 +1,526 @@
+﻿@model admin.ViewModels.Dashboard.DashboardViewModel
+
+
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_UILayout.cshtml";
+}
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Dashboard</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>@Model.TotalProducts</h3>
+
+                            <p>Products</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+                        <a asp-area="" asp-controller="Products" asp-action="Index" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3>@Model.TotalOrders</h3>
+
+                            <p>Orders</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a asp-area="" asp-controller="Orders" asp-action="Index" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3>@Model.TotalCustomers</h3>
+
+                            <p>Customers</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                        <a asp-area="" asp-controller="Customers" asp-action="Index" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3>@Model.TotalSoldItems</h3>
+
+                            <p>Items Sold</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a asp-area="" asp-controller="Orders" asp-action="Index" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+            </div>
+            <!-- graphs -->
+            <!--(those charts are from the <canvas> tags and the JQuery code is from the Chart.js library)-->
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="d-flex justify-content-between">
+                                <h3 class="card-title">Products Per Brand</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <p class="d-flex flex-column">
+                                    <span class="text-bold text-lg">Total Products: @Model.TotalProducts</span>
+                                    <span>Amount</span>
+                                </p>
+                                <p class="ml-auto d-flex flex-column text-right">
+                                    <span class="text-success">
+                                        <i class="fas fa-arrow-up"></i> @Model.TotalBrands Brands
+                                    </span>
+                                    <span class="text-muted">Of All Times</span>
+                                </p>
+                            </div>
+                            <!-- /.d-flex -->
+
+                            <div class="position-relative mb-4">
+                                <div class="chartjs-size-monitor">
+                                    <div class="chartjs-size-monitor-expand">
+                                        <div class="">
+                                        </div>
+                                    </div>
+                                    <div class="chartjs-size-monitor-shrink">
+                                        <div class="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <canvas id="ProductsPerBrand-chart"  height="250" style="display: block; height: 200px; width: 720px;" width="900" class="chartjs-render-monitor"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="d-flex justify-content-between">
+                                <h3 class="card-title">Products Per Type</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <p class="d-flex flex-column">
+                                    <span class="text-bold text-lg">Total Products: @Model.TotalProducts</span>
+                                    <span>Amount</span>
+                                </p>
+                                <p class="ml-auto d-flex flex-column text-right">
+                                    <span class="text-success">
+                                        <i class="fas fa-arrow-up"></i> @Model.TotalTypes Types
+                                    </span>
+                                    <span class="text-muted">Of All Times</span>
+                                </p>
+                            </div>
+                            <!-- /.d-flex -->
+
+                            <div class="position-relative mb-4">
+                                <div class="chartjs-size-monitor">
+                                    <div class="chartjs-size-monitor-expand">
+                                        <div class="">
+                                        </div>
+                                    </div>
+                                    <div class="chartjs-size-monitor-shrink">
+                                        <div class="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <canvas id="ProductsPerType-chart" height="250" style="display: block; height: 200px; width: 720px;" width="900" class="chartjs-render-monitor"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="d-flex justify-content-between">
+                                <h3 class="card-title">Top 5 Sold Products</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <p class="ml-auto d-flex flex-column text-right">
+                                    <span class="text-success">
+                                        <i class="fas fa-arrow-up"></i> Of @Model.TotalProducts Products
+                                    </span>
+                                    <span class="text-muted">Of All Times</span>
+                                </p>
+                            </div>
+                            <!-- /.d-flex -->
+
+                            <div class="position-relative mb-4">
+                                <div class="chartjs-size-monitor">
+                                    <div class="chartjs-size-monitor-expand">
+                                        <div class="">
+                                        </div>
+                                    </div>
+                                    <div class="chartjs-size-monitor-shrink">
+                                        <div class="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <canvas id="Top5SoldProducts" height="650" style="display: block; height: 600px; width: 720px;" width="900" class="chartjs-render-monitor"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="d-flex justify-content-between">
+                                <h3 class="card-title">Top 5 Buying Customers By $ Paid Amount</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <p class="ml-auto d-flex flex-column text-right">
+                                    <span class="text-success">
+                                        <i class="fas fa-arrow-up"></i> Of @Model.TotalCustomers Customers
+                                    </span>
+                                    <span class="text-muted">Of All Times</span>
+                                </p>
+                            </div>
+                            <!-- /.d-flex -->
+
+                            <div class="position-relative mb-4">
+                                <div class="chartjs-size-monitor">
+                                    <div class="chartjs-size-monitor-expand">
+                                        <div class="">
+                                        </div>
+                                    </div>
+                                    <div class="chartjs-size-monitor-shrink">
+                                        <div class="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <canvas id="Top5BuyingCustomers" height="650" style="display: block; height: 600px; width: 720px;" width="900" class="chartjs-render-monitor"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="d-flex justify-content-between">
+                                <h3 class="card-title">Last 30 days when Orders took place</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <p class="d-flex flex-column">
+                                    <span class="text-bold text-lg">Total: @Model.TotalOf_Last30DaysWhenOrdersTookPlaceList $</span>
+                                    <span>Amount </span>
+                                </p>
+                                <p class="ml-auto d-flex flex-column text-right">
+                                    <span class="text-success">
+                                        <i class="fas fa-arrow-up"></i> 30 days
+                                    </span>
+                                    <span class="text-muted">With selling happened</span>
+                                </p>
+                            </div>
+                            <!-- /.d-flex -->
+
+                            <div class="position-relative mb-4">
+                                <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                <canvas id="StoreSales-chart" height="250" width="900" style="display: block; height: 200px; width: 720px;" class="chartjs-render-monitor"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+    //write the code of the charts
+    //(those charts are from the <canvas> tags and the JQuery code is from the Chart.js library)
+    //Refrence: https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/
+
+    function ProductsPerBrand() {
+
+        //C# Part"
+        @{
+           //Splite the List<ProductsPerBrandObject> list which is Model.ProductsPerBrand into 2 arrays, one for Brands name, one for the products count in each brand.
+           //the size of the arrays [size] is the number of elements in the list ofcourse.
+           string[] Brands = new string[Model.ProductsPerBrand.Count()];
+           string[] Counts1 = new string[Model.ProductsPerBrand.Count()];  //Count1 is named like that because other functions uses the same var name like Count2, ...
+           for(int i=0; i < Model.ProductsPerBrand.Count(); i++)
+           {
+               Brands[i] = Model.ProductsPerBrand.AsEnumerable().ElementAt(i).BrandName;
+               Counts1[i] = Model.ProductsPerBrand.AsEnumerable().ElementAt(i).Count.ToString();
+           }
+        }
+        //then transfer those C# arrays to javascript json:
+        var BrandsData = @Html.Raw(Json.Serialize(Brands));
+        var CountsData = @Html.Raw(Json.Serialize(Counts1));
+        //Now use these json data in the chart below:
+        new Chart(document.getElementById("ProductsPerBrand-chart"), {
+            type: 'bar',
+            data: {
+                labels: BrandsData,
+                datasets: [
+                    {
+                        label: "",
+                        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                        data: CountsData
+                    }
+                ]
+            },
+            options: {
+                legend: { display: false },
+                title: {
+                    display: false,
+                    text: ''
+                },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: false
+                        }
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+    function ProductsPerType() {
+        //C# Part
+        @{
+            //Splite the List<ProductsPerTypeObject> list which is Model.ProductsPerType into 2 arrays, one for Types names, one for the products countc in each Type.
+            //the size of the arrays [size] is the number of elements in the list ofcourse.
+            string[] Types = new string[Model.ProductsPerType.Count()];
+            string[] Counts2 = new string[Model.ProductsPerType.Count()]; //Count2 is named like that because other functions uses the same var name like Count1, Count2...
+            for (int i=0; i < Model.ProductsPerType.Count(); i++)
+            {
+                Types[i] = Model.ProductsPerType.AsEnumerable().ElementAt(i).TypeName;
+                Counts2[i] = Model.ProductsPerType.AsEnumerable().ElementAt(i).Count.ToString();
+            }
+        }
+        //then transfer those C# arrays to javascript json:
+        var TypesData = @Html.Raw(Json.Serialize(Types));
+        var CountsData = @Html.Raw(Json.Serialize(Counts2));
+        //Now use these json data in the chart below:
+        new Chart(document.getElementById("ProductsPerType-chart"), {
+            type: 'bar',
+            data: {
+                labels: TypesData,
+                datasets: [
+                    {
+                        label: "",
+                        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                        data: CountsData
+                    }
+                ]
+            },
+            options: {
+                legend: { display: false },
+                title: {
+                    display: false,
+                    text: ''
+                },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: false
+                        }
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+    function Top5SoldProducts() {
+        //C# Part
+        @{
+            //Splite the List<Top5SoldProductsObject> list which is Model.Top5SoldProducts into 2 arrays, one for Products names, one for the products sold items count .
+            //the size of the arrays [size] is the number of elements in the list of course.
+            string[] Products = new string[Model.Top5SoldProducts.Count()];
+            string[] Counts3 = new string[Model.Top5SoldProducts.Count()]; //Count3 is named like that because other functions uses the same var name like Count1, Count2...
+            for (int i=0; i < Model.Top5SoldProducts.Count(); i++)
+            {
+                Products[i] = Model.Top5SoldProducts.AsEnumerable().ElementAt(i).ProductName;
+                Counts3[i] = Model.Top5SoldProducts.AsEnumerable().ElementAt(i).Count.ToString();
+            }
+        }
+        //then transfer those C# arrays to javascript json:
+        var ProductsData = @Html.Raw(Json.Serialize(Products));
+        var CountsData = @Html.Raw(Json.Serialize(Counts3));
+        //Now use these json data in the chart below:
+        new Chart(document.getElementById("Top5SoldProducts"), {
+            type: 'pie',
+            data: {
+                labels: ProductsData,
+                datasets: [{
+                    label: "",
+                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                    data: CountsData
+                }]
+            },
+            options: {
+                title: {
+                    display: false,
+                    text: ''
+                }
+            }
+        });
+    }
+    function Top5BuyingCustomers() {
+
+        //C# Part
+        @{
+            //Splite the List<Top5BuyingCustomersObject> list which is Model.Top5BuyingCustomers into 2 arrays, one for Customers names, one for the amount paid by that customer .
+            //the size of the arrays [size] is the number of elements in the list of course.
+            string[] Customers = new string[Model.Top5BuyingCustomers.Count()];
+            string[] AmountPaid = new string[Model.Top5BuyingCustomers.Count()];
+            for (int i=0; i < Model.Top5BuyingCustomers.Count(); i++)
+            {
+                Customers[i] = Model.Top5BuyingCustomers.AsEnumerable().ElementAt(i).CustomerName;
+                AmountPaid[i] = Model.Top5BuyingCustomers.AsEnumerable().ElementAt(i).AmountPaidSum.ToString();
+            }
+        }
+        //then transfer those C# arrays to javascript json:
+            var CustomersData = @Html.Raw(Json.Serialize(Customers));
+            var AmountPaidData = @Html.Raw(Json.Serialize(AmountPaid));
+        //Now use these json data in the chart below:
+        new Chart(document.getElementById("Top5BuyingCustomers"), {
+            type: 'pie',
+            data: {
+                labels: CustomersData,
+                datasets: [{
+                    label: "",
+                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                    data: AmountPaidData
+                }]
+            },
+            options: {
+                title: {
+                    display: false,
+                    text: ''
+                }
+            }
+        });
+    }
+    function StoreSales() {
+        //C# Part
+        @{
+            //Splite the List<Top5BuyingCustomersObject> list which is Model.Top5BuyingCustomers into 2 arrays, one for Customers names, one for the amount paid by that customer .
+            //the size of the arrays [size] is the number of elements in the list of course.
+            string[] Dates = new string[Model.Last30DaysWhenOrdersTookPlace.Count()];
+            string[] Amounts = new string[Model.Last30DaysWhenOrdersTookPlace.Count()];
+            for (int i=0; i < Model.Last30DaysWhenOrdersTookPlace.Count(); i++)
+            {
+                Dates[i] = Model.Last30DaysWhenOrdersTookPlace.AsEnumerable().ElementAt(i).Date.ToShortDateString();
+                Amounts[i] = Model.Last30DaysWhenOrdersTookPlace.AsEnumerable().ElementAt(i).AmountSum.ToString();
+            }
+        }
+        //then transfer those C# arrays to javascript json:
+            var DatesData = @Html.Raw(Json.Serialize(Dates));
+            var AmountsData = @Html.Raw(Json.Serialize(Amounts));
+        //Now use these json data in the chart below:
+        new Chart(document.getElementById("StoreSales-chart"), {
+            type: 'line',
+            data: {
+                labels: DatesData,
+                datasets: [{
+                    data: AmountsData,
+                    borderColor: "#3e95cd",
+                    fill: false
+                }
+                ]
+            },
+            options: {
+                title: {
+                    display: false,
+                    text: ''
+                },
+                legend: {
+                    display: false
+                },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            autoSkip: false,
+                            maxRotation: 90,
+                            minRotation: 90
+                        }
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        ProductsPerBrand();
+        ProductsPerType();
+        Top5SoldProducts();
+        Top5BuyingCustomers();
+        StoreSales();
+    })
+
+    </script>
+}
