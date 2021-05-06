@@ -1,0 +1,36 @@
+﻿@model admin.ViewModels.CMSUsersMgmt.EditUserViewModel
+
+@{ Layout = null; }
+
+<div class="row">
+    <div class="col-md-12">
+
+
+
+        <form asp-action="EditMyProfile" onsubmit="return jQueryAjaxPost(this);">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Email" type="hidden" />
+            <div class="form-group">
+                <label asp-for="DisplayName" class="control-label"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">aBc</div>
+                    </div>
+                    <input asp-for="DisplayName" class="form-control" required maxlength="16" />
+                </div>
+                <span asp-validation-for="DisplayName" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-md-6 offset-md-3">
+                    <input type="submit" value="Submit" class="btn btn-primary btn-block" />
+                </div>
+            </div>
+        </form>
+
+
+
+    </div>
+</div>

@@ -1,4 +1,5 @@
 ﻿using admin.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,9 +19,11 @@ namespace admin.Controllers
             _logger = logger;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
-            return View();
+            //return View();
+            return RedirectToAction("Index", "Dashboard");
         }
 
         public IActionResult Privacy()

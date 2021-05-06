@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<admin.Models.CmsIdentity.CmsUser> _signInManager;
+<!--those to reach the signed in user's login info cookie-->
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -66,10 +70,9 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="../../index3.html" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
+                    <a class="nav-link">Hi @User.Identity.Name</a>
+                    <!--I couldnt show the .DisplayName property because we need to extend the User.Identity functionality for that-->
+                    <!--To know how: https://stackoverflow.com/questions/28335353/how-to-extend-available-properties-of-user-identity-->
                 </li>
             </ul>
         </nav>
@@ -90,7 +93,7 @@
                         <img src="~/DataContent/Images/user_64px.png" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Admin Name Here</a>
+                        <a asp-controller="AccountProfile" asp-action="Index" class="d-block">My Profile</a>
                     </div>
                 </div>
 
@@ -181,14 +184,14 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-vial"></i>
-                                <p>
-                                    Test Table
-                                </p>
-                            </a>
-                        </li>
+                        @*<li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-vial"></i>
+                                    <p>
+                                        Test Table
+                                    </p>
+                                </a>
+                            </li>*@
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-users-cog"></i>
@@ -199,21 +202,21 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="http://localhost:5050/login" target="_blank" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>PgAdmin</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="http://localhost:8081/" target="_blank" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>RedisCommander</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="https://dashboard.stripe.com/login" target="_blank" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Strip</p>
+                                        <p>Strip Payment</p>
                                     </a>
                                 </li>
                             </ul>
@@ -257,7 +260,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a asp-area="" asp-controller="Account" asp-action="Index" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Users</p>
                                     </a>
@@ -270,12 +273,14 @@
                                 </li>
                             </ul>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-door-open"></i>
-                                <p>
-                                    Logout
-                                </p>
-                            </a>
+                            <form id="logout_form" method="post" asp-action="logout" asp-controller="account">
+                                <a href="javascript:{}" onclick="document.getElementById('logout_form').submit();" class="nav-link" style="">
+                                    <i class="nav-icon fas fa-door-open"></i>
+                                    <p>
+                                        Logout
+                                    </p>
+                                </a>
+                            </form>
                         </li>
                     </ul>
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -417,7 +422,7 @@
         };
         $.validator.setDefaults(settings);
         $.validator.unobtrusive.options = settings;
-                            //$(".input-validation-error").toggleClass("input-validation-error is-invalid");
+                                        //$(".input-validation-error").toggleClass("input-validation-error is-invalid");
     </script>
     <!----------------------------------------------------------------------------------------------->
     <!-- notify.js notifications library -->

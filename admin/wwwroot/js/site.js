@@ -43,8 +43,10 @@ jQueryAjaxPost = form => {
                     convertToDataTable(); //after request is successfull, Datatable features will be erased because controller method returns partial view of the table, so convert it again to datatable
                 }
                 else
+                    //the result is isInvalid, and the controller method will return the model and the partial view with the validation/result errors.
                     $('#form-modal .modal-body').html(res.html);
             },
+            //in case we returned http errors:
             error: function (err) {
                 //do nothing here, ~/js/ajaxErrorHandler will handle the error message and display an error notification.
             }
@@ -96,6 +98,8 @@ jQueryAjaxDelete = form => {
     //prevent default form submit event
     return false;
 }
+
+
 
 
 

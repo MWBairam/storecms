@@ -1,0 +1,14 @@
+﻿@model admin.ViewModels.CMSUsersMgmt.AccountProfileViewModel
+
+@{
+    ViewData["Title"] = "My Profile";
+    Layout = "~/Views/Shared/_UILayout.cshtml";
+}
+
+
+<div id="view-all">
+    @await Html.PartialAsync("_ViewAll", Model)
+</div>
+
+
+
