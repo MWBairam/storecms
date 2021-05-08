@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using admin.ViewModels.CMSUsersMgmt;
 using admin.Helpers;
+using Microsoft.AspNetCore.Authorization;
+using admin.CustomeAttributes;
 
 namespace admin.Controllers
 {
@@ -25,6 +27,8 @@ namespace admin.Controllers
             _roleManager = roleManager;
         }
 
+        //3-Methods:
+        [Authorize] //Authorize for logged in users only, and without any role.
         public IActionResult Index()
         {
             if (HttpContext.User.Identity.IsAuthenticated == true)
@@ -51,6 +55,7 @@ namespace admin.Controllers
         #region EditMyProfile
         [HttpGet]
         [NoDirectAccess] //this attribute from the Helpers folder we created, so the user is prohibited from accessing /<ControllerName>/EditUser directly, and allowed only through ajax request.
+        [CustomeAuthorizeForAjaxAndNonAjax] //The below method is called using ajax request. To authorize it, use this custome attribute. Authorize it for logged in users without any role.
         public async Task<IActionResult> EditMyProfile()
         {
             //bring the current logged in user's info using the GetUserAsync(User) whereas "User" is a predefined parameter in microsoft identity to represent the logged in user.
@@ -69,6 +74,7 @@ namespace admin.Controllers
             return View(EditUserViewModel);
         }
         [HttpPost]
+        [CustomeAuthorizeForAjaxAndNonAjax] //The below method is called using ajax request. To authorize it, use this custome attribute. Authorize it for logged in users without any role.
         public async Task<IActionResult> EditMyProfile(EditUserViewModel model)
         {
             if (ModelState.IsValid)
@@ -121,6 +127,7 @@ namespace admin.Controllers
         #region ChangeMyPassword
         [HttpGet]
         [NoDirectAccess] //this attribute from the Helpers folder we created, so the user is prohibited from accessing /<ControllerName>/EditUser directly, and allowed only through ajax request.
+        [CustomeAuthorizeForAjaxAndNonAjax] //The below method is called using ajax request. To authorize it, use this custome attribute. Authorize it for logged in users without any role.
         public async Task<IActionResult> ChangeMyPassword()
         {
             //bring the current logged in user's info using the GetUserAsync(User) whereas "User" is a predefined parameter in microsoft identity to represent the logged in user.
@@ -140,6 +147,7 @@ namespace admin.Controllers
             return View(ChangeMyPasswordViewModel);
         }
         [HttpPost]
+        [CustomeAuthorizeForAjaxAndNonAjax] //The below method is called using ajax request. To authorize it, use this custome attribute. Authorize it for logged in users without any role.
         public async Task<IActionResult> ChangeMyPassword(ChangeMyPasswordViewModel model)
         {
             if (ModelState.IsValid)

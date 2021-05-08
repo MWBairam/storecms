@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using admin.Data;
 using admin.Models.StoreIdentityModels;
 using admin.Helpers;
+using Microsoft.AspNetCore.Authorization;
+using admin.CustomeAttributes;
 
 namespace admin.Controllers
 {
@@ -21,6 +23,7 @@ namespace admin.Controllers
         }
 
         // GET: CustomersAddresses
+        [Authorize] //Authorize for logged in users only, and without any role.
         public async Task<IActionResult> Index()
         {
             var reversScaffoldedStoreIdentityContext = _context.Addresses.Include(a => a.AppUser);
@@ -36,6 +39,7 @@ namespace admin.Controllers
         // GET: CustomersAddresses/AddOrEdit(Create)
         // GET: CustomersAddresses/AddOrEdit/5(Edit)
         [NoDirectAccess] //this attribute from the Helpers folder we created, so the user is prohibited from accessing /<ControllerName>/AddOrEdit directly, and allowed only through ajax request.
+        [CustomeAuthorizeForAjaxAndNonAjax(Roles = "AddOrEditCustomerAddress")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> AddOrEdit(int id = 0)
         {
             ViewData["AppUserId"] = new SelectList(_context.AspNetUsers, "Id", "Email");
@@ -60,6 +64,7 @@ namespace admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [CustomeAuthorizeForAjaxAndNonAjax(Roles = "AddOrEditCustomerAddress")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> AddOrEdit(int id, [Bind("Id,FirstName,LastName,Street,City,State,Zipcode,AppUserId")] Address Model)
         {
             if (ModelState.IsValid)
@@ -125,28 +130,12 @@ namespace admin.Controllers
 
 
 
-        //// GET: CustomersAddresses/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var address = await _context.Addresses
-        //        .Include(a => a.AppUser)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (address == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(address);
-        //}
+        //No need for the Delee HttpGet method, we are calling the below post method using ajax request directly.
 
         // POST: CustomersAddresses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [CustomeAuthorizeForAjaxAndNonAjax(Roles = "DeleteCustomerAddress")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var address = await _context.Addresses.FindAsync(id);

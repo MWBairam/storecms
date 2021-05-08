@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using admin.Data;
 using admin.Models;
 using admin.Helpers;
+using Microsoft.AspNetCore.Authorization;
+using admin.CustomeAttributes;
 
 namespace admin
 {
@@ -25,6 +27,7 @@ namespace admin
 
         //3-Methods:
         // GET: DeliveryMethods
+        [Authorize] //Authorize for logged in users only, and without any role.
         public async Task<IActionResult> Index()
         {
             return View(await _context.DeliveryMethods.OrderByDescending(x=>x.Id).ToListAsync());
@@ -39,6 +42,7 @@ namespace admin
         // GET: DeliveryMethods/AddOrEdit(Create)
         // GET: DeliveryMethods/AddOrEdit/5(Edit)
         [NoDirectAccess] //this attribute from the Helpers folder we created, so the user is prohibited from accessing /<ControllerName>/AddOrEdit directly, and allowed only through ajax request.
+        [CustomeAuthorizeForAjaxAndNonAjax(Roles = "AddOrEditDeliveryMethod")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> AddOrEdit(int id = 0)
         {
             //in Index.cshtml, if the user clicked "Add"button, no id will be sent, and id will be 0 as it is the default value above.
@@ -61,6 +65,7 @@ namespace admin
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [CustomeAuthorizeForAjaxAndNonAjax(Roles = "AddOrEditDeliveryMethod")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> AddOrEdit(int id, [Bind("Id,ShortName,DeliveryTime,Description,Price")] DeliveryMethod Model)
         {
             if (ModelState.IsValid)
@@ -114,26 +119,12 @@ namespace admin
 
 
 
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var deliveryMethod = await _context.DeliveryMethods
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (deliveryMethod == null)
-            {
-                return NotFound();
-            }
-
-            return View(deliveryMethod);
-        }
+       //No need for Delete HttpGet method becuase we are calling the below HttpPost one with Ajax request directly.
 
         // POST: DeliveryMethods/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [CustomeAuthorizeForAjaxAndNonAjax(Roles = "DeleteDeliveryMethod")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var deliveryMethod = await _context.DeliveryMethods.FindAsync(id);

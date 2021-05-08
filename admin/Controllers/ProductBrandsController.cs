@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using admin.Data;
 using admin.Models;
 using admin.Helpers;
+using Microsoft.AspNetCore.Authorization;
+using admin.CustomeAttributes;
 
 namespace admin.Controllers
 {
@@ -28,6 +30,7 @@ namespace admin.Controllers
 
 
         // GET: ProductBrands
+        [Authorize] //Authorize for logged in users only, and without any role.
         public async Task<IActionResult> Index()
         {
             //return the entire list to the view, then in the view we will use bootstrap datatable for pagination, sorting and search.
@@ -42,6 +45,7 @@ namespace admin.Controllers
         // GET: ProductsBrands/AddOrEdit(Create)
         // GET: ProductsBrands/AddOrEdit/5(Edit)
         [NoDirectAccess] //this attribute from the Helpers folder we created, so the user is prohibited from accessing /<ControllerName>/AddOrEdit directly, and allowed only through ajax request.
+        [CustomeAuthorizeForAjaxAndNonAjax(Roles = "AddOrEditProductBrand")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> AddOrEdit(int id = 0)
         {
             //in Index.cshtml, if the user clicked "Add"button, no id will be sent, and id will be 0 as it is the default value above.
@@ -64,6 +68,7 @@ namespace admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [CustomeAuthorizeForAjaxAndNonAjax(Roles = "AddOrEditProductBrand")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> AddOrEdit(int id, [Bind("Id,Name")] ProductBrand Model)
         {
             if (ModelState.IsValid)
@@ -124,6 +129,7 @@ namespace admin.Controllers
         // POST: ProductBrands/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [CustomeAuthorizeForAjaxAndNonAjax(Roles = "DeleteProductBrand")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var productBrand = await _context.ProductBrands.FindAsync(id);

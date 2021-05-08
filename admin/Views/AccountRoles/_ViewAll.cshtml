@@ -1,0 +1,67 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityRole>
+
+
+<div class="col-md-12">
+    <h1 class="text-center"><i class="fas fa-users text-success"></i> CMS Roles </h1>
+
+
+    <h6 class="text-left">-By Default, all users are able to visite the views of the sidebar buttons. But the Add/Edit/Delete functionalities are authorized using roles.</h6>
+    <h6 class="text-left">-The SuperAdmin should have all these roles assigned, then the superadmin will add/remove roles to other users.</h6>
+    @*<div class="row">
+        <div class="col-md-6 text-left">
+            send id=0 to the method so that the method understands it is a create process. (we can write "null" instead of "new {id=0}" but problems might happen)
+            <a onclick="showInPopup('@Url.Action("CreateRole","AccountRoles",null,Context.Request.Scheme)','Create New Role')" class="btn btn-success text-white my-1"><i class="fas fa-plus"></i> Create New Role</a>
+        </div>
+    </div>*@
+
+
+    <table class="table" id="DataTable">
+        <thead class="thead-light">
+            <tr>
+                <th>
+                    # <!-- This column to have row number. JQuery in site.js will do that-->
+                </th>
+                <th>
+                    Options
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td id="rowNumber">
+                        <!-- This column to havve row number. JQuery in site.js will do that-->
+                    </td>
+                    <td>
+                        <div class="row">
+                            <!-- Display Role Info -->
+                            <a onclick="showInPopup('@Url.Action("DisplayRoleInfo","AccountRoles",new {id =item.Id},Context.Request.Scheme)','Display Role Info')" class="btn btn-light btn-sm ml-1"><i class="fas fa-info"></i></a>
+
+                            <!-- Delete -->
+                            <!-- No DeleteRole method in the controller, because we consider roles are hard coded.-->
+                            <!--<form asp-action="DeleteRole" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+                                <input type="hidden" asp-for="@item.Id" />
+                                <button type="submit" class="btn btn-light btn-sm"><i class="fas fa-trash-alt"></i></button>
+                            </form>-->
+                        </div>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>

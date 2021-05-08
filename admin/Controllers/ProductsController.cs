@@ -10,6 +10,8 @@ using admin.Models;
 using admin.Helpers;
 using Microsoft.AspNetCore.Http;
 using admin.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using admin.CustomeAttributes;
 
 namespace admin.Controllers
 {
@@ -25,6 +27,7 @@ namespace admin.Controllers
         }
 
         // GET: Products
+        [Authorize] //Authorize for logged in users only, and without any role.
         public async Task<IActionResult> Index()
         {
             var reversScaffoldedStoreContext = _context.Products.Include(p => p.ProductBrand).Include(p => p.ProductType);
@@ -41,6 +44,7 @@ namespace admin.Controllers
         // GET: Products/AddOrEdit(Create)
         // GET: Products/AddOrEdit/5(Edit)
         [NoDirectAccess] //this attribute from the Helpers folder we created, so the user is prohibited from accessing /<ControllerName>/AddOrEdit directly, and allowed only through ajax request.
+        [CustomeAuthorizeForAjaxAndNonAjax(Roles = "AddOrEditProduct")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> AddOrEdit(int id = 0)
         {
             ViewData["ProductBrandId"] = new SelectList(_context.ProductBrands, "Id", "Name");
@@ -66,6 +70,7 @@ namespace admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [CustomeAuthorizeForAjaxAndNonAjax(Roles = "AddOrEditProduct")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> AddOrEdit(int id, [Bind("Id,Name,Description,Price,PictureUrl,ProductTypeId,ProductBrandId")] Product Model, IFormFile Picture)
         {
 
@@ -150,6 +155,7 @@ namespace admin.Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [CustomeAuthorizeForAjaxAndNonAjax(Roles = "DeleteProduct")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var product = await _context.Products.FindAsync(id);

@@ -8,10 +8,13 @@ namespace admin.ViewModels.CMSUsersMgmt
 {
     public class EditUserViewModel
     {
+
+        //1-Properties:
         public string Email { get; set; }
 
 
         [Required(ErrorMessage ="DisplayName Is Required !")]
         public string DisplayName { get; set; }
+
     }
 }

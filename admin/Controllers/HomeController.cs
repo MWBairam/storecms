@@ -19,7 +19,7 @@ namespace admin.Controllers
             _logger = logger;
         }
 
-        [Authorize]
+        [Authorize] //Authorize for logged in users only, and without any role.
         public IActionResult Index()
         {
             //return View();

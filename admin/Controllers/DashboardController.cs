@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using admin.ViewModels.Dashboard;
+using Microsoft.AspNetCore.Authorization;
 
 namespace admin.Controllers
 {
@@ -23,7 +24,8 @@ namespace admin.Controllers
             _CustomersIdentitycontext = CustomersIdentitycontext;
         }
 
-
+        //3-Methods:
+        [Authorize] //Authorize for logged in users only, and without any role.
         public IActionResult Index()
         {
 

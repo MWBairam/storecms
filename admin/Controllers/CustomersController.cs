@@ -9,6 +9,8 @@ using admin.Data;
 using admin.Models.StoreIdentityModels;
 using admin.Helpers;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using admin.CustomeAttributes;
 
 namespace admin.Controllers
 {
@@ -23,6 +25,7 @@ namespace admin.Controllers
         }
 
         // GET: Customers
+        [Authorize] //Authorize for logged in users only, and without any role.
         public async Task<IActionResult> Index()
         {
             return View(await _context.AspNetUsers.ToListAsync());
@@ -39,6 +42,7 @@ namespace admin.Controllers
         // GET: Customer/AddOrEdit(Create)
         // GET: Customer/AddOrEdit/5(Edit)
         [NoDirectAccess] //this attribute from the Helpers folder we created, so the user is prohibited from accessing /<ControllerName>/AddOrEdit directly, and allowed only through ajax request.
+        [CustomeAuthorizeForAjaxAndNonAjax(Roles = "AddOrEditCustomer")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> AddOrEdit(string id = "")
         {
             //in Index.cshtml, if the user clicked "Add" button, no id will be sent, and id will be null string as it is the default value above.
@@ -61,6 +65,7 @@ namespace admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [CustomeAuthorizeForAjaxAndNonAjax(Roles = "AddOrEditCustomer")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> AddOrEdit(string id, [Bind("Id,DisplayName,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")]  AspNetUser Model)
         {
             if (ModelState.IsValid)
@@ -115,6 +120,7 @@ namespace admin.Controllers
         // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [CustomeAuthorizeForAjaxAndNonAjax(Roles = "DeleteCustomer")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var aspNetUser = await _context.AspNetUsers.FindAsync(id);

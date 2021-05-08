@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using admin.Data;
 using admin.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace admin.Controllers
 {
@@ -23,6 +24,7 @@ namespace admin.Controllers
 
         //3-Methods:
         // GET: Messages
+        [Authorize] //Authorize for logged in users only, and without any role.
         public async Task<IActionResult> Index()
         {
             return View(await _context.Messages.OrderByDescending(x => x.Id).ToListAsync());

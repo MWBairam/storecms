@@ -105,6 +105,8 @@
                             <!--Reset Password-->
                             <a onclick="showInPopup('@Url.Action("ResetPasswordByAdmin","Account",new {Email =item.Email},Context.Request.Scheme)','Reset Password')" class="btn btn-light btn-sm ml-1"><i class="fas fa-key"></i></a>
 
+                            <!--Edit User Roles-->
+                            <a onclick="showInPopup('@Url.Action("EditUserRoles","Account",new {_Email =item.Email},Context.Request.Scheme)','Edit User Roles')" class="btn btn-light btn-sm ml-1"><i class="fas fa-users-cog"></i></a>
 
                             <!-- Delete -->
                             <form asp-action="DeleteUser" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">

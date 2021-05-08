@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using admin.Data;
 using admin.Models;
 using admin.Helpers;
+using Microsoft.AspNetCore.Authorization;
+using admin.CustomeAttributes;
 
 namespace admin.Controllers
 {
@@ -24,6 +26,7 @@ namespace admin.Controllers
 
         //3-Methods:
         // GET: Orders
+        [Authorize] //Authorize for logged in users only, and without any role.
         public async Task<IActionResult> Index()
         {
             var reversScaffoldedStoreContext = _context.Orders.Include(o => o.DeliveryMethod);
@@ -31,7 +34,7 @@ namespace admin.Controllers
         }
 
 
-
+        [Authorize] //Authorize for logged in users only, and without any role.
         public async Task<IActionResult> ShowOrderItems(int id)
         {
             var orderItems = _context.OrderItems.Include(o => o.Order).Where(m => m.OrderId == id);
@@ -49,6 +52,7 @@ namespace admin.Controllers
         // GET: Orders/AddOrEdit(Create)
         // GET: Orders/AddOrEdit/5(Edit)
         [NoDirectAccess] //this attribute from the Helpers folder we created, so the user is prohibited from accessing /<ControllerName>/AddOrEdit directly, and allowed only through ajax request.
+        [CustomeAuthorizeForAjaxAndNonAjax(Roles = "AddOrEditOrder")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> AddOrEdit(int id = 0)
         {
             ViewData["DeliveryMethodId"] = new SelectList(_context.DeliveryMethods, "Id", "ShortName");
@@ -73,6 +77,7 @@ namespace admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [CustomeAuthorizeForAjaxAndNonAjax(Roles = "AddOrEditOrder")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> AddOrEdit(int id, [Bind("Id,BuyerEmail,OrderDate,ShipToAddressFirstName,ShipToAddressLastName,ShipToAddressStreet,ShipToAddressCity,ShipToAddressState,ShipToAddressZipcode,DeliveryMethodId,Subtotal,Status,PaymentIntentId")] Order Model)
         {
 
@@ -149,28 +154,13 @@ namespace admin.Controllers
 
 
 
-        // GET: Orders/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var order = await _context.Orders
-                .Include(o => o.DeliveryMethod)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            return View(order);
-        }
+        //No need for Delete HttpGet method, we are calling the below post method with ajax request directly.
 
         // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [CustomeAuthorizeForAjaxAndNonAjax(Roles = "DeleteOrder")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var order = await _context.Orders.FindAsync(id);

@@ -266,7 +266,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a asp-controller="AccountRoles" asp-action="Index" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Roles</p>
                                     </a>
@@ -436,6 +436,7 @@
     @*<script src="~/js/JsExceptionsHandler.js"></script>*@
     <!--our js code:-->
     <script src="~/js/site.js"></script>
+    <script src="~/js/ajaxErrorHandler.js"></script>
     <!--javascripts written in views under the section "Scripts"-->
     @await RenderSectionAsync("Scripts", required: false)
 </body>
