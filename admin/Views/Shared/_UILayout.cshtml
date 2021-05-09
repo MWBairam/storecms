@@ -76,8 +76,11 @@
                     <!--I couldnt show the .DisplayName property because we need to extend the User.Identity functionality for that-->
                     <!--To know how: https://stackoverflow.com/questions/28335353/how-to-extend-available-properties-of-user-identity-->
                 </li>
+                <!-- breadcrumb-->
             </ul>
         </nav>
+
+
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -187,13 +190,13 @@
                             </a>
                         </li>
                         @*<li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-vial"></i>
-                                    <p>
-                                        Test Table
-                                    </p>
-                                </a>
-                            </li>*@
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-vial"></i>
+                                <p>
+                                    Test Table
+                                </p>
+                            </a>
+                        </li>*@
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-users-cog"></i>
@@ -302,6 +305,18 @@
         <div class="content-wrapper">
             <div class="container">
                 <main role="main" class="pb-3">
+
+                    <!--The first div is to create space between the breadcrunmb and the <nav> bar above.-->
+                    <div class="content-header"></div>
+                    <div class="container-fluid body-content">
+                        <!-- #region Breadcrumb -->
+                        @using admin.Helpers
+                        @Html.BuildBreadcrumbNavigation()
+                        <!-- #endregion -->
+                    </div>
+
+
+
                     @RenderBody()
                 </main>
             </div>
@@ -315,7 +330,7 @@
 
     </div>
 
-    <!-- this is a div where we open the AddOrEdit.cshtml as a bootstrap modal popup-->
+    <!-- this is a div where we open the AddOrEdit.cshtml (or other views we want) as a bootstrap modal popup-->
     <!-- The Ajax method for it is in site.js and called in Index.chtml-->
     <div class="modal" tabindex="-1" role="dialog" id="form-modal">
         <div class="modal-dialog" role="document">
@@ -351,6 +366,15 @@
         Loading&#8230;
     </div>
     <!-- in spinner-js.js we can say what spinner design to operate-->
+
+
+
+
+
+
+
+
+
 
 
 
@@ -438,7 +462,7 @@
         };
         $.validator.setDefaults(settings);
         $.validator.unobtrusive.options = settings;
-                                            //$(".input-validation-error").toggleClass("input-validation-error is-invalid");
+                                                //$(".input-validation-error").toggleClass("input-validation-error is-invalid");
     </script>
     <!----------------------------------------------------------------------------------------------->
     <!-- notify.js notifications library -->
