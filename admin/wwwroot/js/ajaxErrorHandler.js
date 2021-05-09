@@ -28,6 +28,7 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
     }
     else if (jqxhr.status == 500 || jqxhr.status == 503) {
         toastr.error('Error ' + jqxhr.status + ' !' + 'Internal Server Error !');
+        console.log('Error requesting page ' + settings.url + '. ' + 'Error ' + jqxhr.status + ' of ' + thrownError + ' was returned.');
     }
     else {
         toastr.error('Error ' + jqxhr.status + ' !');

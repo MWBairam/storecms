@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Server Error";
+    Layout = "~/Views/Shared/_UILayout.cshtml";
+}
+
+
+
+
+
+
+
+
+<section class="content">
+    <div class="error-page">
+        <h2 class="headline text-danger">500</h2>
+
+        <div class="error-content">
+            <h3><i class="fas fa-exclamation-triangle text-danger"></i> Oops! Something went wrong.</h3>
+
+            <p>
+                We will work on fixing that right away.
+                Meanwhile, you may <a asp-controller="Home" asp-action="Index">return to dashboard,</a> or try using the search form.
+            </p>
+
+            <form class="search-form">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Search">
+
+                    <div class="input-group-append">
+                        <button type="submit" name="submit" class="btn btn-danger">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.input-group -->
+            </form>
+        </div>
+    </div>
+    <!-- /.error-page -->
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+<h3>The Support Team is Notified and we are working on the fix !</h3>
+<h3> Contact us on randomemail@randomdomain.com</h3>
+
+<h3>Exception Details:</h3>
+<div class="alert alert-danger">
+    <h5>Exception Path</h5>
+    <hr />
+    <p>@ViewBag.ExceptionPath</p>
+</div>
+
+<div class="alert alert-danger">
+    <h5>Exception Message</h5>
+    <hr />
+    <p>@ViewBag.ExceptionMessage</p>
+</div>
+
+<div class="alert alert-danger">
+    <h5>Exception Trace</h5>
+    <hr />
+    <p>@ViewBag.Stacktrace</p>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //display the returned error message from Error Controller (should be 'Error 404 !') using notify.j existed in lib/notify.js:
+            var message = "Exception has been Thrown ! Internal Server Error 500 !";
+            toastr.error(message);
+        });
+    </script>
+}

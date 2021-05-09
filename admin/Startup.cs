@@ -80,16 +80,13 @@ namespace admin
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+            //handle exceptions thrown in development or production modes by forwarding it to the ErrorController, to the route /Exception where our ExceptionHandler method is existed:
+            app.UseExceptionHandler("/Exception");
+
+            //handle http errors (in particular, 404) by forwarding it to ErrorController to the route /Error/{statusCode} where the HttpStatusCodeHandler method is existed:
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
+            //once we receive an http error message (including error 404), the application will forward it to the ErrorController while passing the http error code to it (the place holder {0} means to pass the error code).
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
