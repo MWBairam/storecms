@@ -43,7 +43,7 @@
                     <td>
                         <div class="row">
                             <!-- Display Role Info -->
-                            <a onclick="showInPopup('@Url.Action("DisplayRoleInfo","AccountRoles",new {id =item.Id},Context.Request.Scheme)','Display Role Info')" class="btn btn-light btn-sm ml-1"><i class="fas fa-info"></i></a>
+                            <a onclick="showInPopup('@Url.Action("DisplayRoleInfo","AccountRoles",new {id =item.Id},Context.Request.Scheme)','Display Role Info')" data-toggle="tooltip" data-placement="top" title="Display Role's info" class="btn btn-light btn-sm ml-1"><i class="fas fa-info"></i></a>
 
                             <!-- Delete -->
                             <!-- No DeleteRole method in the controller, because we consider roles are hard coded.-->

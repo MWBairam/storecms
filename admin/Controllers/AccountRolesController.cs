@@ -92,6 +92,7 @@ namespace admin.Controllers
         //DisplayRoleInfo:
         // Role ID is passed from the URL to the action
         [HttpGet]
+        [NoDirectAccessAttribute]
         [CustomeAuthorizeForAjaxAndNonAjax(Roles = "DisplayRoleInfo")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> DisplayRoleInfo(string id)
         {

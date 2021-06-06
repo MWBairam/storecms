@@ -52,9 +52,47 @@ namespace admin.Controllers
 
         }
 
+        public async Task<IActionResult> DisplayMyRoles()
+        {
+            /*
+            Note:
+            -We are executing 2 Select (Get or Read) calls to the DB in:
+            var user = _userManager.FindById(SignedInUserId);
+            var MyRoles = _roleManager.Roles
+            
+            -Unfortunately, the PostgresDB does not support multiple select calls for one instance of DbContext,
+            and we wil get an exception thrown saying: "A command is already in progress" when performing the second one !
+            
+            -The solution was found bu using .ToList() in the first and second command.
+            ToList() forced the aoolication to stop and wat untill the execution is finished, then moved to the execute the second one.
+            */
+
+            //Bring the logged in user's Id from the Identity cookie:
+            var SignedInUserId = _userManager.GetUserId(HttpContext.User);
+            //Bring the user by Id, but instead of _userManager.FindById(SignedInUserId), use the below as we explained in the note above:
+            var user = _userManager.Users.Where(p => p.Id != null).ToList().Where(x => x.Id == SignedInUserId).FirstOrDefault();
+            if (user == null)
+            {
+                return NotFound();
+            }
+            //bring all roles:
+            var AllRoles = _roleManager.Roles.Where(p => p.Id != null).Select(x => x.Name).ToList();
+            //check if the roles I have:
+            var MyRoles = new List<string>();
+            foreach(var role in AllRoles )
+            {
+                if(await _userManager.IsInRoleAsync(user, role))
+                {
+                    MyRoles.Add(role);
+                }
+            }
+            return View(MyRoles);
+        }
+
+
         #region EditMyProfile
         [HttpGet]
-        [NoDirectAccess] //this attribute from the Helpers folder we created, so the user is prohibited from accessing /<ControllerName>/EditUser directly, and allowed only through ajax request.
+        [NoDirectAccessAttribute] //this attribute from the CustomeAttributes folder we created, so the user is prohibited from accessing /<ControllerName>/EditUser directly, and allowed only through ajax request.
         [CustomeAuthorizeForAjaxAndNonAjax] //The below method is called using ajax request. To authorize it, use this custome attribute. Authorize it for logged in users without any role.
         public async Task<IActionResult> EditMyProfile()
         {
@@ -126,7 +164,7 @@ namespace admin.Controllers
 
         #region ChangeMyPassword
         [HttpGet]
-        [NoDirectAccess] //this attribute from the Helpers folder we created, so the user is prohibited from accessing /<ControllerName>/EditUser directly, and allowed only through ajax request.
+        [NoDirectAccessAttribute] //this attribute from the CustomeAttributes folder we created, so the user is prohibited from accessing /<ControllerName>/EditUser directly, and allowed only through ajax request.
         [CustomeAuthorizeForAjaxAndNonAjax] //The below method is called using ajax request. To authorize it, use this custome attribute. Authorize it for logged in users without any role.
         public async Task<IActionResult> ChangeMyPassword()
         {

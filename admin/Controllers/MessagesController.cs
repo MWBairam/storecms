@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using admin.Data;
 using admin.Models;
 using Microsoft.AspNetCore.Authorization;
+using admin.Helpers;
+using admin.CustomeAttributes;
 
 namespace admin.Controllers
 {
@@ -31,6 +33,9 @@ namespace admin.Controllers
         }
 
         // GET: Messages/ShowMessage/5
+        [HttpGet]
+        [NoDirectAccessAttribute]
+        [Authorize]
         public async Task<IActionResult> ShowMessage(int? id)
         {
             if (id == null)

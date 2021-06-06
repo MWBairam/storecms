@@ -10,7 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace admin.Helpers
+namespace admin.CustomeAttributes
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class NoDirectAccessAttribute : ActionFilterAttribute

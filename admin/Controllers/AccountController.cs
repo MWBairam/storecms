@@ -46,7 +46,7 @@ namespace admin.Controllers
         #region Register
         //Get Register View by requesting ..../account/register:
         [HttpGet]
-        [NoDirectAccess] //this attribute from the Helpers folder we created, so the user is prohibited from accessing /<ControllerName>/Register directly, and allowed only through ajax request.
+        [NoDirectAccessAttribute] //this attribute from the CustomeAttributes folder we created, so the user is prohibited from accessing /<ControllerName>/Register directly, and allowed only through ajax request.
         [CustomeAuthorizeForAjaxAndNonAjax(Roles = "RegisterNewCMSUser")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public IActionResult Register()
         {
@@ -122,7 +122,7 @@ namespace admin.Controllers
 
         #region Edituser
         [HttpGet]
-        [NoDirectAccess] //this attribute from the Helpers folder we created, so the user is prohibited from accessing /<ControllerName>/EditUser directly, and allowed only through ajax request.
+        [NoDirectAccessAttribute] //this attribute from the CustomeAttributes folder we created, so the user is prohibited from accessing /<ControllerName>/EditUser directly, and allowed only through ajax request.
         [CustomeAuthorizeForAjaxAndNonAjax(Roles = "EditCMSUser")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> EditUser(string Email)
         {
@@ -210,7 +210,7 @@ namespace admin.Controllers
 
         #region ResetPasswordByAdmin
         [HttpGet]
-        [NoDirectAccess] //this attribute from the Helpers folder we created, so the user is prohibited from accessing /<ControllerName>/EditUser directly, and allowed only through ajax request.
+        [NoDirectAccessAttribute] //this attribute from the CustomeAttributes folder we created, so the user is prohibited from accessing /<ControllerName>/EditUser directly, and allowed only through ajax request.
         [CustomeAuthorizeForAjaxAndNonAjax(Roles = "ResetCMSUserPassword")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> ResetPasswordByAdmin(string Email)
         {
@@ -308,9 +308,9 @@ namespace admin.Controllers
         }
 
 
-        #region EditUserRole
+        #region EditUserRoles
         [HttpGet]
-        [NoDirectAccess] //this attribute from the Helpers folder we created, so the user is prohibited from accessing /<ControllerName>/EditUser directly, and allowed only through ajax request.
+        [NoDirectAccessAttribute] //this attribute from the CustomeAttributes folder we created, so the user is prohibited from accessing /<ControllerName>/EditUser directly, and allowed only through ajax request.
         [CustomeAuthorizeForAjaxAndNonAjax(Roles = "EditUserRoles")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> EditUserRoles(string _Email)
         {

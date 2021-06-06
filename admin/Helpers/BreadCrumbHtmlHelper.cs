@@ -10,8 +10,9 @@ namespace admin.Helpers
 
         public static IHtmlContent BuildBreadcrumbNavigation(this IHtmlHelper helper)
         {
-            //Exclud all the views of the HomeCntroller and AccountController from having a breadcrumb:
-            if (helper.ViewContext.RouteData.Values["controller"].ToString() == "Home")
+            //Exclud all the views of the HomeCntroller and ErrorController from having a breadcrumb:
+            if (helper.ViewContext.RouteData.Values["controller"].ToString() == "Home" ||
+                helper.ViewContext.RouteData.Values["controller"].ToString() == "Error")
             {
                 return _emptyBuilder;
             }
@@ -27,7 +28,7 @@ namespace admin.Helpers
                                 .AppendHtml("<ol class='breadcrumb'><li>")
                                 .AppendHtml(helper.ActionLink("Home", "Index", "Home"))
                                 .AppendHtml("</li><li>")
-                                .AppendHtml(">>")
+                                .AppendHtml("&nbsp;&nbsp;>>&nbsp;&nbsp;")
                                 .AppendHtml(helper.ActionLink(controllerName, "Index", controllerName))
                                 .AppendHtml("</li>");
 

@@ -33,7 +33,7 @@ namespace admin.Controllers
             return View(await reversScaffoldedStoreContext.OrderByDescending(x => x.Id).ToListAsync());
         }
 
-
+        [NoDirectAccessAttribute]
         [Authorize] //Authorize for logged in users only, and without any role.
         public async Task<IActionResult> ShowOrderItems(int id)
         {
@@ -51,7 +51,7 @@ namespace admin.Controllers
 
         // GET: Orders/AddOrEdit(Create)
         // GET: Orders/AddOrEdit/5(Edit)
-        [NoDirectAccess] //this attribute from the Helpers folder we created, so the user is prohibited from accessing /<ControllerName>/AddOrEdit directly, and allowed only through ajax request.
+        [NoDirectAccessAttribute] //this attribute from the CustomeAttributes folder we created, so the user is prohibited from accessing /<ControllerName>/AddOrEdit directly, and allowed only through ajax request.
         [CustomeAuthorizeForAjaxAndNonAjax(Roles = "AddOrEditOrder")] //This method is called using ajax requests so authorize it with the custome attribute we created for the logged in users with the appropriate role.
         public async Task<IActionResult> AddOrEdit(int id = 0)
         {

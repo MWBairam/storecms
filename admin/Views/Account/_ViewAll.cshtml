@@ -100,18 +100,18 @@
                     <td>
                         <div class="row">
                             <!-- Edit -->
-                            <a onclick="showInPopup('@Url.Action("EditUser","Account",new {Email =item.Email},Context.Request.Scheme)','Update User')" class="btn btn-light btn-sm ml-1"><i class="fas fa-pencil-alt"></i></a>
+                            <a onclick="showInPopup('@Url.Action("EditUser","Account",new {Email =item.Email},Context.Request.Scheme)','Update User')" data-toggle="tooltip" data-placement="top" title="Edit CMSUser" class="btn btn-light btn-sm ml-1"><i class="fas fa-pencil-alt"></i></a>
 
                             <!--Reset Password-->
-                            <a onclick="showInPopup('@Url.Action("ResetPasswordByAdmin","Account",new {Email =item.Email},Context.Request.Scheme)','Reset Password')" class="btn btn-light btn-sm ml-1"><i class="fas fa-key"></i></a>
+                            <a onclick="showInPopup('@Url.Action("ResetPasswordByAdmin","Account",new {Email =item.Email},Context.Request.Scheme)','Reset Password')" data-toggle="tooltip" data-placement="top" title="Reset password" class="btn btn-light btn-sm ml-1"><i class="fas fa-key"></i></a>
 
                             <!--Edit User Roles-->
-                            <a onclick="showInPopup('@Url.Action("EditUserRoles","Account",new {_Email =item.Email},Context.Request.Scheme)','Edit User Roles')" class="btn btn-light btn-sm ml-1"><i class="fas fa-users-cog"></i></a>
+                            <a onclick="showInPopup('@Url.Action("EditUserRoles","Account",new {_Email =item.Email},Context.Request.Scheme)','Edit User Roles')" data-toggle="tooltip" data-placement="top" title="Edit CMSUser's Roles" class="btn btn-light btn-sm ml-1"><i class="fas fa-users-cog"></i></a>
 
                             <!-- Delete -->
                             <form asp-action="DeleteUser" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
                                 <input type="hidden" asp-for="@item.Id" />
-                                <button type="submit" class="btn btn-light btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                <button type="submit" data-toggle="tooltip" data-placement="top" title="Delete" class="btn btn-light btn-sm"><i class="fas fa-trash-alt"></i></button>
                             </form>
                         </div>
                     </td>

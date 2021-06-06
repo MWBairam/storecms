@@ -25,7 +25,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h6>Users in this role</h6>
+            <h6 class="font-weight-bold">Users in this role</h6>
         </div>
         <div class="card-body">
 
@@ -34,7 +34,7 @@
             {
                 foreach (var user in Model.Users)
                 {
-                    <h5 class="card-title">@user</h5>
+                  <h5 class="card-title" style="text-decoration:underline">@user</h5> <p>&nbsp; &nbsp;</p>
                 }
             }
             else

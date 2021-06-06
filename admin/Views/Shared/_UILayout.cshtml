@@ -58,6 +58,7 @@
     <!-- our css config:-->
     <link rel="stylesheet" href="~/css/site.css" />
 
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
@@ -236,21 +237,33 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="http://localhost:3000/d/dVvgfLqMz/tables?orgId=1" target="_blank" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Tables</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="http://localhost:3000/d/6mpMs_qGk/store-statistics?orgId=1&from=1616282720762&to=1616572061262" target="_blank" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Tops</p>
+                                        <p>Store Statastics</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="http://localhost:3000/d/TktVvKqMz/linux-machine-statistics?orgId=1" target="_blank" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Orders By Date</p>
+                                        <p>Linux Machine Statistics</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="http://localhost:3000/d/j6WDBT3Gk/http-statistics?orgId=1" target="_blank" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>HTTP Statastics</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="http://localhost:3000/d/RrCkyTqMz/docker-containers?orgId=1" target="_blank" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Docker Containers</p>
                                     </a>
                                 </li>
                             </ul>
@@ -290,7 +303,7 @@
                     </ul>
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div class="info ml-3">
-                            <a class="d-block">CMS Version 1.0</a>
+                            <a class="d-block">CMS Version 1.0.0</a>
                         </div>
                     </div>
                 </nav>
@@ -399,8 +412,8 @@
     <!-- Sparkline -->
     <script src="~/lib/AdminLTE/sparklines/sparkline.js"></script>
     <!-- JQVMap -->
-    <script src="~/lib/AdminLTE/jqvmap/jquery.vmap.min.js"></script>
-    <script src="~/lib/AdminLTE/jqvmap/maps/jquery.vmap.usa.js"></script>
+    @*<script src="~/lib/AdminLTE/jqvmap/jquery.vmap.min.js"></script>
+    <script src="~/lib/AdminLTE/jqvmap/maps/jquery.vmap.usa.js"></script>*@
     <!-- jQuery Knob Chart -->
     <script src="~/lib/AdminLTE/jquery-knob/jquery.knob.min.js"></script>
     <!-- daterangepicker -->
@@ -462,7 +475,7 @@
         };
         $.validator.setDefaults(settings);
         $.validator.unobtrusive.options = settings;
-                                                //$(".input-validation-error").toggleClass("input-validation-error is-invalid");
+        //$(".input-validation-error").toggleClass("input-validation-error is-invalid");
     </script>
     <!----------------------------------------------------------------------------------------------->
     <!-- notify.js notifications library -->
